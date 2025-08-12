@@ -9,7 +9,7 @@
     "head_sampling_rate": 1
   },
   "vars": {
-    "ORIGIN": "https://images.bruceshih.me",
+    "ACCEPTED_ORIGIN": "https://wallpapers.bruceshih.me",
   },
   "images": {
     "binding": "IMAGES", // i.e. available in your Worker on env.IMAGES

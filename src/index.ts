@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 
 type Bindings = {
-  ORIGIN: string,
+  ACCEPTED_ORIGIN: string,
   BUCKET: R2Bucket
   IMAGES: ImagesBinding
 }
@@ -12,8 +12,8 @@ app.get('/preview/:key', async (c) => {
   // check whether the request origin is the same as this
   const referer = c.req.header('Referer')
   const url = new URL(referer || '')
-  if (url.origin !== c.env.ORIGIN) {
-    console.log(`Forbidden request from ${url.origin}, origin: ${c.env.ORIGIN}`)
+  if (url.origin !== c.env.ACCEPTED_ORIGIN) {
+    console.log(`Forbidden request from ${url.origin}, origin: ${c.env.ACCEPTED_ORIGIN}`)
     c.status(403)
     return c.text('Forbidden')
   }
@@ -70,8 +70,8 @@ app.get('/full/:key', async (c) => {
   // check whether the request origin is the same as this
   const referer = c.req.header('Referer')
   const url = new URL(referer || '')
-  if (url.origin !== c.env.ORIGIN) {
-    console.log(`Forbidden request from ${url.origin}, origin: ${c.env.ORIGIN}`)
+  if (url.origin !== c.env.ACCEPTED_ORIGIN) {
+    console.log(`Forbidden request from ${url.origin}, origin: ${c.env.ACCEPTED_ORIGIN}`)
     c.status(403)
     return c.text('Forbidden')
   }
