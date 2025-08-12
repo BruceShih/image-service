@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "image-service",
   "main": "src/index.ts",
+  "minify": true,
   "compatibility_date": "2025-08-12",
   "vars": {
     "ORIGIN": "https://localhost" // Environment variable for the origin URL
