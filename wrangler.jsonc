@@ -8,10 +8,12 @@
     "enabled": true,
     "head_sampling_rate": 1
   },
-  "vars": {
-    "ORIGIN": "http://localhost:8787" // Environment variable for the origin URL
-  },
   "env": {
+    "dev": {
+      "vars": {
+        "ORIGIN": "http://localhost:8787"
+      }
+    },
     "production": {
       "vars": {
         "ORIGIN": "https://images.bruceshih.me"
