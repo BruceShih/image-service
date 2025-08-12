@@ -8,18 +8,6 @@
     "enabled": true,
     "head_sampling_rate": 1
   },
-  "env": {
-    "dev": {
-      "vars": {
-        "ORIGIN": "http://localhost:8787"
-      }
-    },
-    "production": {
-      "vars": {
-        "ORIGIN": "https://images.bruceshih.me"
-      }
-    }
-  },
   "images": {
     "binding": "IMAGES", // i.e. available in your Worker on env.IMAGES
   },
