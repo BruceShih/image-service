@@ -43,18 +43,10 @@ app.get('/preview/:key', async (c) => {
   }
 
   try {
-    // check whether the stream is an image
-    await c.env.IMAGES.info(image)
-  } catch {
-    console.log(`Stream is not an image`)
-    c.status(500)
-    return c.text('Stream is not an image')
-  }
-
-  try {
     // resize the image stream using cloudflare images transform
     const response = (
       await c.env.IMAGES.input(image)
+        .transform({ width: 250 })
         .output({ format: "image/webp" })
     ).response();
 
