@@ -11,13 +11,15 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.get('/preview/:key', async (c) => {
   // check whether the request origin is the same as this
   if (c.req.header('Origin') !== c.env.ORIGIN) {
-    return c.status(403)
+    c.status(403)
+    return c.text('Forbidden')
   }
 
   // validate key
   const key = c.req.param('key')
   if (!key) {
-    return c.status(400)
+    c.status(400)
+    return c.text('Bad Request')
   }
 
   let image: ReadableStream | undefined = undefined
@@ -25,10 +27,13 @@ app.get('/preview/:key', async (c) => {
   try {
     // get image stream from r2
     image = (await c.env.BUCKET.get(key))?.body
-    if (!image) { return c.status(404) }
+    if (!image) { 
+      c.status(404)
+      return c.text('Not Found')
+    }
   } catch {
     c.status(500)
-    return c.text('r2 error')
+    return c.text('R2 error')
   }
 
   try {
@@ -36,7 +41,7 @@ app.get('/preview/:key', async (c) => {
     await c.env.IMAGES.info(image)
   } catch {
     c.status(500)
-    return c.text('stream is not a image')
+    return c.text('Stream is not an image')
   }
 
   try {
@@ -49,31 +54,36 @@ app.get('/preview/:key', async (c) => {
     return response
   } catch {
     c.status(500)
-    return c.text('image transform error')
+    return c.text('Image transform error')
   }
 })
 
 app.get('/full/:key', async (c) => {
   // check whether the request origin is the same as this
   if (c.req.header('Origin') !== c.env.ORIGIN) {
-    return c.status(403)
+    c.status(403)
+    return c.text('Forbidden')
   }
 
   // validate key
   const key = c.req.param('key')
   if (!key) {
-    return c.status(400)
+    c.status(400)
+    return c.text('Bad Request')
   }
 
   try {
     // get image stream from r2
     const image = await c.env.BUCKET.get(key)
-    if (!image) { return c.status(404) }
+    if (!image) { 
+      c.status(404)
+      return c.text('Not Found')
+    }
 
     return new Response(image.body)
   } catch {
     c.status(500)
-    return c.text('r2 error')
+    return c.text('R2 error')
   }
 })
 
