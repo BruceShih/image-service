@@ -10,7 +10,9 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.get('/preview/:key', async (c) => {
   // check whether the request origin is the same as this
-  if (c.req.header('Origin') !== c.env.ORIGIN) {
+  const referer = c.req.header('Referer')
+  const url = new URL(referer || '')
+  if (url.origin !== c.env.ORIGIN) {
     c.status(403)
     return c.text('Forbidden')
   }
@@ -60,7 +62,9 @@ app.get('/preview/:key', async (c) => {
 
 app.get('/full/:key', async (c) => {
   // check whether the request origin is the same as this
-  if (c.req.header('Origin') !== c.env.ORIGIN) {
+  const referer = c.req.header('Referer')
+  const url = new URL(referer || '')
+  if (url.origin !== c.env.ORIGIN) {
     c.status(403)
     return c.text('Forbidden')
   }
