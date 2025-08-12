@@ -5,7 +5,7 @@
   "minify": true,
   "compatibility_date": "2025-08-12",
   "vars": {
-    "ORIGIN": "https://localhost" // Environment variable for the origin URL
+    "ORIGIN": "http://localhost:8787" // Environment variable for the origin URL
   },
   "env": {
     "production": {
