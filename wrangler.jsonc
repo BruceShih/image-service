@@ -6,7 +6,7 @@
   "compatibility_date": "2025-08-12",
   "observability": {
     "enabled": true,
-    "head_sampling_rate": 100
+    "head_sampling_rate": 1
   },
   "vars": {
     "ORIGIN": "http://localhost:8787" // Environment variable for the origin URL
