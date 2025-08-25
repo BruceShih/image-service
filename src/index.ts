@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { cache } from 'hono/cache'
 
 type Bindings = {
   ACCEPTED_ORIGIN: string,
@@ -58,7 +59,10 @@ app.get('/preview/:key', async (c) => {
   }
 })
 
-app.get('/full/:key', async (c) => {
+app.get('/full/:key', cache({
+    cacheName: 'image-service',
+    cacheControl: 'max-age=86400',
+  }), async (c) => {
   // check whether the request origin is the same as this
   const referer = c.req.header('Referer')
   const url = new URL(referer || '')
